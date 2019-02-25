@@ -15,6 +15,7 @@ import (
 	"github.com/autonomy/conform/internal/policy/license"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
+	"github.com/spf13/viper"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -40,7 +41,7 @@ var policyMap = map[string]policy.Policy{
 
 // New loads the conform.yaml file and unmarshals it into a Conform struct.
 func New() (*Conform, error) {
-	configBytes, err := ioutil.ReadFile(".conform.yaml")
+	configBytes, err := yaml.Marshal(viper.AllSettings())
 	if err != nil {
 		return nil, err
 	}
