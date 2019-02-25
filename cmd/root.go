@@ -38,7 +38,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", ".conform.yaml", "config file (default is .conform.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is .conform.yaml)")
 	RootCmd.Flags().BoolVar(&debug, "debug", false, "Debug rendering")
 }
 
@@ -57,7 +57,8 @@ func initConfig() {
 
 		// Search config in home directory with name ".cobra" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cobra")
+		viper.AddConfigPath(".")
+		viper.SetConfigFile(".conform.yaml")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

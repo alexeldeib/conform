@@ -6,7 +6,6 @@ package enforcer
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"text/tabwriter"
 
