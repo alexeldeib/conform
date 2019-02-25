@@ -11,7 +11,7 @@ import (
 	"os/exec"
 	"testing"
 
-	"github.com/autonomy/conform/internal/policy"
+	"github.com/alexeldeib/conform/internal/policy"
 )
 
 func RemoveAll(dir string) {

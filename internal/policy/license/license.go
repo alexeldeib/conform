@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/autonomy/conform/internal/policy"
+	"github.com/alexeldeib/conform/internal/policy"
 	"github.com/pkg/errors"
 )
 

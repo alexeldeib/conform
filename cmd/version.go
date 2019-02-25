@@ -10,7 +10,7 @@ import (
 	"html/template"
 	"runtime"
 
-	"github.com/autonomy/conform/internal/constants"
+	"github.com/alexeldeib/conform/internal/constants"
 	"github.com/spf13/cobra"
 )
 

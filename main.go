@@ -4,7 +4,7 @@
 
 package main
 
-import "github.com/autonomy/conform/cmd"
+import "github.com/alexeldeib/conform/cmd"
 
 func main() {
 	cmd.Execute()

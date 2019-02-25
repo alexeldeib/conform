@@ -6,13 +6,12 @@ package enforcer
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"text/tabwriter"
 
-	"github.com/autonomy/conform/internal/policy"
-	"github.com/autonomy/conform/internal/policy/commit"
-	"github.com/autonomy/conform/internal/policy/license"
+	"github.com/alexeldeib/conform/internal/policy"
+	"github.com/alexeldeib/conform/internal/policy/commit"
+	"github.com/alexeldeib/conform/internal/policy/license"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"

@@ -31,18 +31,18 @@ test:
 
 image: build
 	@docker build \
-		-t autonomy/conform:$(TAG) \
+		-t alexeldeib/conform:$(TAG) \
 		--target=$@ \
 		$(COMMON_ARGS)
 
 push: image
-	@docker tag autonomy/conform:$(TAG) autonomy/conform:latest
-	@docker push autonomy/conform:$(TAG)
-	@docker push autonomy/conform:latest
+	@docker tag alexeldeib/conform:$(TAG) alexeldeib/conform:latest
+	@docker push alexeldeib/conform:$(TAG)
+	@docker push alexeldeib/conform:latest
 
 deps:
 	@GO111MODULES=on CGO_ENABLED=0 go get -u github.com/autonomy/gitmeta
-	@GO111MODULES=on CGO_ENABLED=0 go get -u github.com/autonomy/conform
+	@GO111MODULES=on CGO_ENABLED=0 go get -u github.com/alexeldeib/conform
 
 clean:
 	go clean -modcache

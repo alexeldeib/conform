@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/autonomy/conform/internal/git"
-	"github.com/autonomy/conform/internal/policy"
+	"github.com/alexeldeib/conform/internal/git"
+	"github.com/alexeldeib/conform/internal/policy"
 	"github.com/pkg/errors"
 	prose "gopkg.in/jdkato/prose.v2"
 )

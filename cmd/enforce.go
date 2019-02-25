@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/autonomy/conform/internal/enforcer"
-	"github.com/autonomy/conform/internal/policy"
+	"github.com/alexeldeib/conform/internal/enforcer"
+	"github.com/alexeldeib/conform/internal/policy"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

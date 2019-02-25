@@ -3,12 +3,12 @@
   <p align="center">Policy enforcement for your pipelines.</p>
   <p align="center">
     <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square"></a>
-    <a href="https://godoc.org/github.com/autonomy/conform"><img alt="GoDoc" src="http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square"></a>
-    <a href="https://travis-ci.org/autonomy/conform"><img alt="Travis" src="https://img.shields.io/travis/autonomy/conform.svg?style=flat-square"></a>
-    <a href="https://codecov.io/gh/autonomy/conform"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/autonomy/conform.svg?style=flat-square"></a>
-    <a href="https://goreportcard.com/report/github.com/autonomy/conform"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/autonomy/conform?style=flat-square"></a>
-    <a href="https://github.com/autonomy/conform/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/autonomy/conform.svg?style=flat-square"></a>
-    <a href="https://github.com/autonomy/conform/releases/latest"><img alt="GitHub (pre-)release" src="https://img.shields.io/github/release/autonomy/conform/all.svg?style=flat-square"></a>
+    <a href="https://godoc.org/github.com/alexeldeib/conform"><img alt="GoDoc" src="http://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square"></a>
+    <a href="https://travis-ci.org/alexeldeib/conform"><img alt="Travis" src="https://img.shields.io/travis/alexeldeib/conform.svg?style=flat-square"></a>
+    <a href="https://codecov.io/gh/alexeldeib/conform"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/alexeldeib/conform.svg?style=flat-square"></a>
+    <a href="https://goreportcard.com/report/github.com/alexeldeib/conform"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/alexeldeib/conform?style=flat-square"></a>
+    <a href="https://github.com/alexeldeib/conform/releases/latest"><img alt="Release" src="https://img.shields.io/github/release/alexeldeib/conform.svg?style=flat-square"></a>
+    <a href="https://github.com/alexeldeib/conform/releases/latest"><img alt="GitHub (pre-)release" src="https://img.shields.io/github/release/alexeldeib/conform/all.svg?style=flat-square"></a>
   </p>
 </p>
 
@@ -62,4 +62,4 @@ license                   PASS          <none>
 ```
 
 ### License
-[![license](https://img.shields.io/github/license/autonomy/conform.svg?style=flat-square)](https://github.com/autonomy/conform/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/alexeldeib/conform.svg?style=flat-square)](https://github.com/alexeldeib/conform/blob/master/LICENSE)

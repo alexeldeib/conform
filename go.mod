@@ -1,4 +1,4 @@
-module github.com/autonomy/conform
+module github.com/alexeldeib/conform
 
 require (
 	github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7 // indirect
