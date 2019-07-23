@@ -99,9 +99,10 @@ linters:
   disable:
     - gas
     - typecheck
+    - gochecknoglobals
+    - gochecknoinits
   disable-all: false
   fast: false
-
 
 issues:
   # List of regexps of issue texts to exclude, empty list by default.

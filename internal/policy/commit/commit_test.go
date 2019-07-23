@@ -21,6 +21,113 @@ func RemoveAll(dir string) {
 	}
 }
 
+func TestConventionalCommitPolicy(t *testing.T) {
+	type testDesc struct {
+		Name         string
+		CreateCommit func() error
+		ExpectValid  bool
+	}
+
+	for _, test := range []testDesc{
+		{
+			Name:         "Valid",
+			CreateCommit: createValidCommit,
+			ExpectValid:  true,
+		},
+		{
+			Name:         "Invalid",
+			CreateCommit: createInvalidCommit,
+			ExpectValid:  false,
+		},
+		{
+			Name:         "Empty",
+			CreateCommit: createEmptyCommit,
+			ExpectValid:  false,
+		},
+	} {
+		func(test testDesc) {
+			t.Run(test.Name, func(tt *testing.T) {
+				dir, err := ioutil.TempDir("", "test")
+				if err != nil {
+					log.Fatal(err)
+				}
+				defer RemoveAll(dir)
+				err = os.Chdir(dir)
+				if err != nil {
+					tt.Error(err)
+				}
+				err = initRepo()
+				if err != nil {
+					tt.Error(err)
+				}
+
+				err = test.CreateCommit()
+				if err != nil {
+					tt.Error(err)
+				}
+				report, err := runCompliance()
+				if err != nil {
+					t.Error(err)
+				}
+
+				if test.ExpectValid {
+					if !report.Valid() {
+						tt.Error("Report is invalid with valid conventional commit")
+					}
+				} else {
+					if report.Valid() {
+						tt.Error("Report is valid with invalid conventional commit")
+					}
+				}
+			})
+		}(test)
+	}
+}
+
+func TestValidateDCO(t *testing.T) {
+	type testDesc struct {
+		Name          string
+		CommitMessage string
+		ExpectValid   bool
+	}
+
+	for _, test := range []testDesc{
+		{
+			Name:          "Valid DCO",
+			CommitMessage: "something nice\n\nSigned-off-by: Foo Bar <foobar@example.org>\n\n",
+			ExpectValid:   true,
+		},
+		{
+			Name:          "Valid DCO with CRLF",
+			CommitMessage: "something nice\r\n\r\nSigned-off-by: Foo Bar <foobar@example.org>\r\n\r\n",
+			ExpectValid:   true,
+		},
+		{
+			Name:          "No DCO",
+			CommitMessage: "something nice\n\nnot signed\n",
+			ExpectValid:   false,
+		},
+	} {
+		// Fixes scopelint error.
+		test := test
+		t.Run(test.Name, func(tt *testing.T) {
+			var report policy.Report
+			c := Commit{msg: test.CommitMessage}
+			report.AddCheck(c.ValidateDCO())
+
+			if test.ExpectValid {
+				if !report.Valid() {
+					tt.Error("Report is invalid with valid DCP")
+				}
+			} else {
+				if report.Valid() {
+					tt.Error("Report is valid with invalid DCO")
+				}
+			}
+		})
+	}
+}
+
 func TestValidConventionalCommitPolicy(t *testing.T) {
 	dir, err := ioutil.TempDir("", "test")
 	if err != nil {
@@ -44,10 +151,11 @@ func TestValidConventionalCommitPolicy(t *testing.T) {
 		t.Error(err)
 	}
 	if !report.Valid() {
-		t.Error("Report is invalid with valid conventional commit")
+		t.Errorf("Report is invalid with valid conventional commit")
 	}
 }
 
+// nolint: dupl
 func TestInvalidConventionalCommitPolicy(t *testing.T) {
 	dir, err := ioutil.TempDir("", "test")
 	if err != nil {
@@ -71,6 +179,34 @@ func TestInvalidConventionalCommitPolicy(t *testing.T) {
 		t.Error(err)
 	}
 	if report.Valid() {
+		t.Errorf("Report is valid with invalid conventional commit")
+	}
+}
+
+// nolint: dupl
+func TestEmptyConventionalCommitPolicy(t *testing.T) {
+	dir, err := ioutil.TempDir("", "test")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer RemoveAll(dir)
+	err = os.Chdir(dir)
+	if err != nil {
+		t.Error(err)
+	}
+	err = initRepo()
+	if err != nil {
+		t.Error(err)
+	}
+	err = createEmptyCommit()
+	if err != nil {
+		t.Error(err)
+	}
+	report, err := runCompliance()
+	if err != nil {
+		t.Error(err)
+	}
+	if report.Valid() {
 		t.Error("Report is valid with invalid conventional commit")
 	}
 }
@@ -83,9 +219,7 @@ func runCompliance() (*policy.Report, error) {
 		},
 	}
 
-	report := c.Compliance(&policy.Options{})
-
-	return &report, nil
+	return c.Compliance(&policy.Options{})
 }
 
 func initRepo() error {
@@ -110,6 +244,12 @@ func createValidCommit() error {
 
 func createInvalidCommit() error {
 	_, err := exec.Command("git", "-c", "user.name='test'", "-c", "user.email='test@autonomy.io'", "commit", "-m", "invalid commit").Output()
+
+	return err
+}
+
+func createEmptyCommit() error {
+	_, err := exec.Command("git", "-c", "user.name='test'", "-c", "user.email='test@autonomy.io'", "commit", "--allow-empty-message", "-m", "").Output()
 
 	return err
 }
